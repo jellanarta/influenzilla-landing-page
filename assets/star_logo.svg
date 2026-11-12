@@ -1,0 +1,11 @@
+<svg width="34" height="33" viewBox="0 0 34 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="star_gradient" x1="0" y1="0" x2="34" y2="33" gradientUnits="userSpaceOnUse">
+    <stop offset="0%" stop-color="#C6F1F7"/>
+    <stop offset="35%" stop-color="#F983E9"/>
+    <stop offset="75%" stop-color="#B877FF"/>
+    <stop offset="100%" stop-color="#C2E9CD"/>
+  </linearGradient>
+</defs>
+<path d="M16.7545 0L18.9771 10.9065L27.6902 3.98028L22.3823 13.7638L33.509 14.0587L23.1542 18.1414L31.4882 25.5194L20.9316 21.991L22.5733 32.9999L16.7545 23.5113L10.9358 32.9999L12.5775 21.991L2.02087 25.5194L10.3549 18.1414L2.8632e-05 14.0587L11.1268 13.7638L5.81881 3.98028L14.532 10.9065L16.7545 0Z" fill="url(#star_gradient)"/>
+</svg>
