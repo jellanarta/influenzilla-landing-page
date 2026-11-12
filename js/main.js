@@ -284,20 +284,60 @@
     });
 
     // ======================================================================
-    // 6. STICKY NAVBAR BACKGROUND ON SCROLL
-    // Transparent over hero background initially, gets background after scrolling
+    // 6. SMART STICKY NAVBAR (AUTO HIDE ON SCROLL DOWN, REVEAL ON SCROLL UP)
+    // Sits transparently over hero initially.
+    // Slides up out of view on scroll down so it doesn't obstruct content.
+    // Slides back down into view on scroll up with dark backdrop for readability.
     // ======================================================================
     var $siteHeader = $('#siteHeader');
-    function checkHeaderScroll() {
-      if ($(window).scrollTop() > 40) {
-        $siteHeader.addClass('scrolled');
-      } else {
-        $siteHeader.removeClass('scrolled');
+    var lastScrollTop = 0;
+    var scrollThreshold = 8; // Minimum scroll delta to avoid jitter
+
+    function handleHeaderScroll() {
+      var currentScroll = $(window).scrollTop();
+
+      // Guard against iOS momentum bounce (negative scroll)
+      if (currentScroll < 0) {
+        currentScroll = 0;
+      }
+
+      // If mobile drawer is open, keep header visible and don't animate away
+      if ($('#mobileNavDrawer').is(':visible')) {
+        return;
+      }
+
+      // At very top of page: transparent, fully visible, neither scrolled nor hidden
+      if (currentScroll <= 40) {
+        $siteHeader.removeClass('scrolled header-hidden');
+        lastScrollTop = currentScroll;
+        return;
+      }
+
+      // Add dark background backdrop once past initial fold top
+      $siteHeader.addClass('scrolled');
+
+      // Check if scroll delta exceeds threshold
+      var scrollDiff = currentScroll - lastScrollTop;
+      if (Math.abs(scrollDiff) > scrollThreshold) {
+        if (currentScroll > lastScrollTop && currentScroll > 100) {
+          // Scrolling DOWN -> Hide navbar smoothly
+          if (!$siteHeader.hasClass('header-hidden')) {
+            $siteHeader.addClass('header-hidden');
+            // Close language dropdown if open so it doesn't float
+            $('.lang-dropdown-menu').removeClass('open');
+          }
+        } else if (currentScroll < lastScrollTop) {
+          // Scrolling UP -> Reveal navbar smoothly
+          if ($siteHeader.hasClass('header-hidden')) {
+            $siteHeader.removeClass('header-hidden');
+          }
+        }
+        lastScrollTop = currentScroll;
       }
     }
 
-    $(window).on('scroll', checkHeaderScroll);
-    checkHeaderScroll();
+    $(window).on('scroll', handleHeaderScroll);
+    handleHeaderScroll();
 
 
     // ======================================================================

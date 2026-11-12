@@ -170,8 +170,18 @@ button {
   background: transparent;
   padding-top: 10px;
   padding-bottom: 0;
-  -webkit-transition: background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  transition: background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  -webkit-transform: translateY(0);
+  -ms-transform: translateY(0);
+  transform: translateY(0);
+  -webkit-transition: -webkit-transform 0.35s ease, background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.35s ease, background-color 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hidden state: slides up smoothly out of view when scrolling down */
+.site-header.header-hidden {
+  -webkit-transform: translateY(-110%);
+  -ms-transform: translateY(-110%);
+  transform: translateY(-110%);
 }
 
 /* Scrolled state: activates after user scrolls down a few pixels */
